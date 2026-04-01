@@ -1,0 +1,1378 @@
+
+:root {
+
+  --bg       : #f4f6f3;
+  --surface  : #ffffff;
+
+
+  --green    : #2d6a4f;   
+  --green-mid: #40916c;   
+  --green-lt : #52b788;   
+  --green-pale: #d8f3dc;  
+  --green-p2 : #f0faf3;   
+  --accent   : #1b4332;   
+
+  /* Text colors */
+  --text     : #1a2318;   
+  --muted    : #6b7f66;   
+  --muted2   : #95a88e;  
+
+  /* Border */
+  --border   : #e0e8dc;
+  --border2  : #ccd8c5;
+
+  /* Status colors */
+  --amber    : #b7791f;
+  --amber-bg : #fffbeb;
+  --amber-bdr: #fde68a;
+  --red      : #c0392b;
+
+  /* Typography */
+  --font     : 'Plus Jakarta Sans', sans-serif;
+
+  /* Spacing */
+  --radius   : 10px;
+  --radius-lg: 14px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.10);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.14);
+}
+
+
+/* ============================================================
+   2. RESET & BASE
+   Removes default browser margins/padding. Sets global font.
+   ============================================================ */
+*, *::before, *::after {
+  margin      : 0;
+  padding     : 0;
+  box-sizing  : border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background  : var(--bg);
+  color       : var(--text);
+  font-family : var(--font);
+  font-size   : 15px;
+  line-height : 1.6;
+  min-height  : 100vh;
+}
+
+a {
+  color          : var(--green);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width : 100%;
+  display   : block;
+}
+
+
+/* ============================================================
+   3. NAVIGATION
+   Sticky top nav bar with logo, main links, and "More" dropdown
+   ============================================================ */
+nav {
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  padding        : 0 2.5rem;
+  height         : 58px;
+  background     : var(--surface);
+  border-bottom  : 1px solid var(--border);
+  position       : sticky;
+  top            : 0;
+  z-index        : 200;
+  box-shadow     : var(--shadow-sm);
+}
+
+/* Logo text */
+.logo {
+  font-size     : 1.15rem;
+  font-weight   : 800;
+  color         : var(--accent);
+  letter-spacing: -0.3px;
+  cursor        : pointer;
+}
+
+.logo em {
+  color     : var(--green-lt);
+  font-style: normal;
+}
+
+/* Nav link list */
+.nav-links {
+  display    : flex;
+  align-items: center;
+  gap        : 2px;
+}
+
+/* Individual nav link */
+.nav-links a {
+  color         : var(--muted);
+  font-size     : .82rem;
+  font-weight   : 500;
+  cursor        : pointer;
+  padding       : .38rem .72rem;
+  border-radius : 6px;
+  transition    : all .15s;
+  white-space   : nowrap;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color     : var(--green);
+  background: var(--green-pale);
+}
+
+/* Active nav link */
+.nav-links a.on {
+  color      : var(--green);
+  background : var(--green-pale);
+  font-weight: 700;
+}
+
+/* "More ▼" dropdown wrapper */
+.nav-more {
+  position: relative;
+}
+
+/* More button */
+.nmb {
+  display      : inline-flex;
+  align-items  : center;
+  gap          : .28rem;
+  color        : var(--muted);
+  font-size    : .82rem;
+  font-weight  : 500;
+  cursor       : pointer;
+  padding      : .38rem .72rem;
+  border-radius: 6px;
+  transition   : all .15s;
+  border       : none;
+  background   : none;
+  font-family  : var(--font);
+  white-space  : nowrap;
+}
+
+.nmb:hover,
+.nmb.active {
+  color     : var(--green);
+  background: var(--green-pale);
+}
+
+/* Arrow icon inside More button */
+.nmb .arr {
+  font-size : .6rem;
+  transition: transform .2s;
+  display   : inline-block;
+}
+
+/* Dropdown menu panel */
+.nav-dropdown {
+  display      : none;
+  position     : absolute;
+  top          : calc(100% + 6px);
+  right        : 0;
+  background   : var(--surface);
+  border       : 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow   : var(--shadow-md);
+  min-width    : 175px;
+  overflow     : hidden;
+  z-index      : 300;
+}
+
+.nav-dropdown.open {
+  display  : block;
+  animation: fadeUp .18s ease;
+}
+
+.nav-dropdown a {
+  display      : block;
+  padding      : .65rem 1rem;
+  font-size    : .83rem;
+  font-weight  : 500;
+  color        : var(--text);
+  cursor       : pointer;
+  transition   : background .12s;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+}
+
+.nav-dropdown a:last-child {
+  border-bottom: none;
+}
+
+.nav-dropdown a:hover {
+  background: var(--green-pale);
+  color     : var(--green);
+}
+
+.nav-dropdown a.on {
+  color      : var(--green);
+  font-weight: 700;
+  background : var(--green-pale);
+}
+
+
+/* ============================================================
+   4. PAGE / SECTION SYSTEM
+   Each section is a .pg div — only .on class is visible.
+   Fade+slide animation plays when switching sections.
+   ============================================================ */
+.pg {
+  display   : none;
+  max-width : 1060px;
+  margin    : 0 auto;
+  padding   : 2.5rem 2rem 5rem;
+  animation : fadeUp .3s ease;
+}
+
+.pg.on {
+  display: block;
+}
+
+/* Section header (used in most pages) */
+.sec-head {
+  margin-bottom: 1.8rem;
+}
+
+.sec-head h2 {
+  font-size    : 1.5rem;
+  font-weight  : 800;
+  color        : var(--accent);
+  margin-bottom: .3rem;
+}
+
+.sec-head p {
+  color    : var(--muted);
+  font-size: .88rem;
+}
+
+/* Horizontal rule divider */
+.hr {
+  height    : 1px;
+  background: var(--border);
+  margin    : 2rem 0;
+}
+
+
+/* ============================================================
+   5. BUTTONS
+   Two variants: solid primary (.btn-p) and outlined (.btn-o)
+   ============================================================ */
+.btn {
+  display      : inline-flex;
+  align-items  : center;
+  gap          : .38rem;
+  padding      : .6rem 1.4rem;
+  border-radius: var(--radius);
+  font-family  : var(--font);
+  font-size    : .88rem;
+  font-weight  : 600;
+  cursor       : pointer;
+  border       : none;
+  transition   : all .15s;
+  text-decoration: none;
+}
+
+/* Solid green button */
+.btn-p {
+  background: var(--green);
+  color     : #fff;
+}
+
+.btn-p:hover {
+  background: var(--green-mid);
+  transform : translateY(-1px);
+  box-shadow: 0 4px 12px rgba(45,106,79,.25);
+  color     : #fff;
+  text-decoration: none;
+}
+
+/* Outlined button */
+.btn-o {
+  background: transparent;
+  color     : var(--green);
+  border    : 1.5px solid var(--border2);
+}
+
+.btn-o:hover {
+  border-color   : var(--green-lt);
+  background     : var(--green-pale);
+  text-decoration: none;
+}
+
+/* Full-width button modifier */
+.btn-full {
+  width          : 100%;
+  justify-content: center;
+}
+
+
+/* ============================================================
+   6. FORMS
+   Shared styles for labels, inputs, selects, textareas
+   ============================================================ */
+.field {
+  margin-bottom: 1rem;
+}
+
+label {
+  display       : block;
+  font-size     : .76rem;
+  font-weight   : 700;
+  color         : var(--muted);
+  margin-bottom : .35rem;
+  text-transform: uppercase;
+  letter-spacing: .35px;
+}
+
+input,
+select,
+textarea {
+  width        : 100%;
+  background   : var(--bg);
+  border       : 1.5px solid var(--border);
+  color        : var(--text);
+  padding      : .62rem .9rem;
+  border-radius: var(--radius);
+  font-family  : var(--font);
+  font-size    : .88rem;
+  outline      : none;
+  transition   : border-color .15s, background .15s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--green-lt);
+  background  : #fff;
+}
+
+select option {
+  background: #fff;
+}
+
+textarea {
+  resize    : vertical;
+  min-height: 82px;
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   7. HOME PAGE
+   Hero, stats strip, how-it-works, problem cards, features
+   ============================================================ */
+
+/* Hero area */
+.hero {
+  padding: 3rem 0 2rem;
+}
+
+.hero-tag {
+  display       : inline-flex;
+  align-items   : center;
+  gap           : .38rem;
+  background    : var(--green-pale);
+  color         : var(--green);
+  font-size     : .74rem;
+  font-weight   : 700;
+  padding       : .3rem .8rem;
+  border-radius : 99px;
+  margin-bottom : 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.hero h1 {
+  font-size    : clamp(1.9rem, 4vw, 2.9rem);
+  font-weight  : 800;
+  line-height  : 1.15;
+  color        : var(--accent);
+  margin-bottom: .95rem;
+}
+
+.hero h1 em {
+  color     : var(--green-mid);
+  font-style: normal;
+}
+
+.hero-sub {
+  color        : var(--muted);
+  font-size    : .94rem;
+  max-width    : 500px;
+  line-height  : 1.75;
+  margin-bottom: 1.8rem;
+}
+
+.hero-btns {
+  display  : flex;
+  gap      : .75rem;
+  flex-wrap: wrap;
+}
+
+/* Stats strip — 4 columns */
+.stats-strip {
+  display         : grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap             : 1px;
+  background      : var(--border);
+  border          : 1px solid var(--border);
+  border-radius   : var(--radius);
+  overflow        : hidden;
+  margin-top      : 2.8rem;
+}
+
+.stat-box {
+  background : var(--surface);
+  padding    : 1.15rem 1rem;
+  text-align : center;
+}
+
+.stat-box .num {
+  font-size  : 1.65rem;
+  font-weight: 800;
+  color      : var(--green);
+  line-height: 1;
+}
+
+.stat-box .lbl {
+  font-size : .73rem;
+  color     : var(--muted);
+  margin-top: .2rem;
+}
+
+/* Home section headings */
+.home-title {
+  font-size    : 1.18rem;
+  font-weight  : 800;
+  color        : var(--accent);
+  margin-bottom: .28rem;
+}
+
+.home-sub {
+  font-size    : .85rem;
+  color        : var(--muted);
+  margin-bottom: 1.2rem;
+}
+
+/* E-waste device type icons grid */
+.type-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap                  : .65rem;
+  margin-bottom        : 2.5rem;
+}
+
+.type-card {
+  background   : var(--surface);
+  border       : 1px solid var(--border);
+  border-radius: var(--radius);
+  padding      : .9rem;
+  text-align   : center;
+  transition   : box-shadow .15s, border-color .15s;
+}
+
+.type-card:hover {
+  border-color: var(--green-lt);
+  box-shadow  : var(--shadow-sm);
+}
+
+.type-icon {
+  font-size    : 1.7rem;
+  margin-bottom: .38rem;
+}
+
+.type-card span {
+  font-size  : .78rem;
+  font-weight: 600;
+  color      : var(--text);
+}
+
+/* Problem cards (left-bordered) */
+.prob-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap                  : .8rem;
+  margin-bottom        : 2.5rem;
+}
+
+.prob-card {
+  background   : var(--surface);
+  border       : 1px solid var(--border);
+  border-left  : 3px solid var(--green-lt);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding      : 1rem 1.1rem;
+}
+
+.prob-card h4 {
+  font-size    : .87rem;
+  font-weight  : 700;
+  color        : var(--accent);
+  margin-bottom: .32rem;
+}
+
+.prob-card p {
+  font-size  : .80rem;
+  color      : var(--muted);
+  line-height: 1.65;
+}
+
+/* How-it-works steps */
+.steps-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap                  : .9rem;
+  margin-bottom        : 2.5rem;
+}
+
+.step-card {
+  background   : var(--surface);
+  border       : 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding      : 1.3rem;
+}
+
+.step-num {
+  font-size          : 2.2rem;
+  font-weight        : 800;
+  color              : var(--green-pale);
+  -webkit-text-stroke: 1.5px var(--green-lt);
+  line-height        : 1;
+  margin-bottom      : .55rem;
+}
+
+.step-card h4 {
+  font-size    : .9rem;
+  font-weight  : 700;
+  color        : var(--accent);
+  margin-bottom: .35rem;
+}
+
+.step-card p {
+  font-size  : .80rem;
+  color      : var(--muted);
+  line-height: 1.65;
+}
+
+/* Feature cards (green background) */
+.feat-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+  gap                  : .78rem;
+  margin-bottom        : 2.5rem;
+}
+
+.feat-card {
+  background   : var(--green-pale);
+  border       : 1px solid #b7e4c7;
+  border-radius: var(--radius);
+  padding      : 1rem;
+  display      : flex;
+  gap          : .78rem;
+  align-items  : flex-start;
+}
+
+.feat-icon {
+  font-size : 1.35rem;
+  flex-shrink: 0;
+}
+
+.feat-card h4 {
+  font-size    : .85rem;
+  font-weight  : 700;
+  color        : var(--accent);
+  margin-bottom: .2rem;
+}
+
+.feat-card p {
+  font-size  : .78rem;
+  color      : var(--muted);
+  line-height: 1.55;
+}
+
+
+/* ============================================================
+   8. FIND CENTERS — SEARCH
+   Search box with city + category filters
+   ============================================================ */
+.search-box {
+  background   : var(--surface);
+  border       : 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding      : 1.4rem;
+  margin-bottom: 1.5rem;
+  box-shadow   : var(--shadow-sm);
+}
+
+.search-row {
+  display              : grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap                  : .75rem;
+  align-items          : end;
+}
+
+/* Results grid */
+.results-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap                  : 1rem;
+}
+
+/* Empty state */
+.empty-state {
+  text-align : center;
+  padding    : 3rem 1rem;
+  color      : var(--muted);
+  grid-column: 1 / -1;
+}
+
+.empty-state .empty-icon {
+  font-size    : 2.2rem;
+  margin-bottom: .7rem;
+}
+
+
+/* ============================================================
+   9. CENTER CARDS + DETAIL MODAL
+   Clickable cards in the results grid.
+   Modal popup with full details + Google Maps button.
+   ============================================================ */
+
+/* Result card */
+.center-card {
+  background   : var(--surface);
+  border       : 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding      : 1.3rem;
+  cursor       : pointer;
+  transition   : border-color .15s, box-shadow .15s;
+  position     : relative;
+}
+
+.center-card:hover {
+  border-color: var(--green-lt);
+  box-shadow  : var(--shadow-md);
+}
+
+.center-card:hover .c-name {
+  color: var(--green-mid);
+}
+
+.c-name {
+  font-size    : .97rem;
+  font-weight  : 700;
+  color        : var(--accent);
+  margin-bottom: .2rem;
+  transition   : color .15s;
+}
+
+.c-city {
+  font-size    : .78rem;
+  font-weight  : 600;
+  color        : var(--green-mid);
+  margin-bottom: .52rem;
+}
+
+.c-addr {
+  font-size    : .82rem;
+  color        : var(--muted);
+  margin-bottom: .75rem;
+  line-height  : 1.55;
+}
+
+.tag-row {
+  display      : flex;
+  flex-wrap    : wrap;
+  gap          : .3rem;
+  margin-bottom: .8rem;
+}
+
+/* Category badge */
+.tag {
+  background    : var(--green-pale);
+  color         : var(--green);
+  font-size     : .7rem;
+  font-weight   : 700;
+  padding       : .2rem .55rem;
+  border-radius : 99px;
+  text-transform: capitalize;
+}
+
+.c-phone {
+  font-size: .82rem;
+  color    : var(--muted);
+}
+
+.c-phone strong {
+  color      : var(--text);
+  font-weight: 600;
+}
+
+.c-source {
+  font-size : .7rem;
+  color     : var(--muted2);
+  margin-top: .45rem;
+}
+
+/* Tap hint label */
+.tap-hint {
+  font-size : .7rem;
+  color     : var(--green-lt);
+  margin-top: .5rem;
+  display   : flex;
+  align-items: center;
+  gap       : .25rem;
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  display        : none;
+  position       : fixed;
+  inset          : 0;
+  background     : rgba(10,20,10,.45);
+  backdrop-filter: blur(4px);
+  z-index        : 500;
+  align-items    : center;
+  justify-content: center;
+  padding        : 1rem;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal-box {
+  background   : var(--surface);
+  border       : 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  width        : 100%;
+  max-width    : 510px;
+  box-shadow   : var(--shadow-lg);
+  animation    : fadeUp .22s ease;
+  overflow     : hidden;
+}
+
+.modal-header {
+  display        : flex;
+  align-items    : flex-start;
+  justify-content: space-between;
+  padding        : 1.4rem 1.4rem .9rem;
+  border-bottom  : 1px solid var(--border);
+}
+
+.modal-header h3 {
+  font-size  : 1.05rem;
+  font-weight: 800;
+  color      : var(--accent);
+  line-height: 1.3;
+  flex       : 1;
+  padding-right: .8rem;
+}
+
+.modal-close {
+  background   : none;
+  border       : none;
+  cursor       : pointer;
+  color        : var(--muted);
+  font-size    : 1.2rem;
+  line-height  : 1;
+  padding      : .1rem .3rem;
+  border-radius: 5px;
+  transition   : all .15s;
+}
+
+.modal-close:hover {
+  background: var(--bg);
+  color     : var(--text);
+}
+
+.modal-body {
+  padding: 1.2rem 1.4rem 1.4rem;
+}
+
+.detail-row {
+  display      : flex;
+  gap          : .75rem;
+  align-items  : flex-start;
+  padding      : .62rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-icon {
+  font-size  : 1rem;
+  flex-shrink: 0;
+  width      : 20px;
+  text-align : center;
+  margin-top : .12rem;
+}
+
+.detail-label {
+  font-size     : .72rem;
+  font-weight   : 700;
+  color         : var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .35px;
+  margin-bottom : .15rem;
+}
+
+.detail-value {
+  font-size: .88rem;
+  color    : var(--text);
+}
+
+/* Google Maps button inside modal */
+.maps-btn {
+  display        : inline-flex;
+  align-items    : center;
+  gap            : .4rem;
+  background     : var(--green);
+  color          : #fff;
+  border         : none;
+  padding        : .55rem 1.1rem;
+  border-radius  : 8px;
+  font-family    : var(--font);
+  font-size      : .84rem;
+  font-weight    : 600;
+  cursor         : pointer;
+  text-decoration: none;
+  transition     : all .15s;
+  margin-top     : .9rem;
+}
+
+.maps-btn:hover {
+  background     : var(--green-mid);
+  transform      : translateY(-1px);
+  color          : #fff;
+  text-decoration: none;
+}
+
+.modal-tags {
+  display  : flex;
+  flex-wrap: wrap;
+  gap      : .3rem;
+}
+
+
+/* ============================================================
+   10. IMPACT CALCULATOR
+   Two-column layout: device inputs left, results right
+   ============================================================ */
+.two-col {
+  display              : grid;
+  grid-template-columns: 1fr 1fr;
+  gap                  : 1.5rem;
+}
+
+.card-box {
+  background   : var(--surface);
+  border       : 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding      : 1.4rem;
+  box-shadow   : var(--shadow-sm);
+}
+
+.card-title {
+  font-size    : .94rem;
+  font-weight  : 700;
+  color        : var(--accent);
+  margin-bottom: .95rem;
+}
+
+.device-row {
+  display      : flex;
+  align-items  : center;
+  gap          : .75rem;
+  padding      : .55rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.device-row:last-child {
+  border-bottom: none;
+}
+
+/* Override label style inside device rows */
+.device-row label {
+  margin        : 0;
+  font-size     : .85rem;
+  flex          : 1;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight   : 500;
+  color         : var(--text);
+}
+
+.qty-input {
+  width      : 68px;
+  text-align : center;
+}
+
+/* Impact result item */
+.impact-item {
+  display      : flex;
+  align-items  : center;
+  gap          : .9rem;
+  padding      : .88rem;
+  background   : var(--bg);
+  border       : 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: .6rem;
+}
+
+.impact-emoji {
+  font-size : 1.4rem;
+  flex-shrink: 0;
+}
+
+.impact-value {
+  font-size  : 1.2rem;
+  font-weight: 800;
+  color      : var(--green);
+  line-height: 1;
+}
+
+.impact-label {
+  font-size : .74rem;
+  color     : var(--muted);
+  margin-top: .13rem;
+}
+
+
+/* ============================================================
+   11. DATA WIPE GUIDE
+   Numbered step list shown when device is selected
+   ============================================================ */
+.step-list {
+  list-style: none;
+  margin-top: 1.2rem;
+}
+
+.step-item {
+  display      : flex;
+  gap          : .9rem;
+  align-items  : flex-start;
+  padding      : .9rem;
+  background   : var(--surface);
+  border       : 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: .6rem;
+  transition   : border-color .15s;
+}
+
+.step-item:hover {
+  border-color: var(--green-lt);
+}
+
+.step-num {
+  width        : 26px;
+  height       : 26px;
+  flex-shrink  : 0;
+  background   : var(--green-pale);
+  color        : var(--green);
+  border-radius: 50%;
+  display      : flex;
+  align-items  : center;
+  justify-content: center;
+  font-size    : .75rem;
+  font-weight  : 700;
+}
+
+.step-body {
+  font-size  : .86rem;
+  line-height: 1.6;
+  color      : var(--text);
+}
+
+.step-body strong {
+  color: var(--green);
+}
+
+
+/* ============================================================
+   12. AWARENESS ACCORDIONS
+   Click to expand each topic. Only one open at a time.
+   CSS transition on max-height creates smooth expand/collapse.
+   ============================================================ */
+.acc-item {
+  background   : var(--surface);
+  border       : 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: .75rem;
+  overflow     : hidden;
+  transition   : border-color .2s;
+}
+
+.acc-item.open {
+  border-color: var(--green-lt);
+}
+
+.acc-head {
+  display     : flex;
+  align-items : center;
+  gap         : .88rem;
+  padding     : 1.1rem 1.2rem;
+  cursor      : pointer;
+  user-select : none;
+  transition  : background .15s;
+}
+
+.acc-head:hover {
+  background: var(--bg);
+}
+
+.acc-emoji {
+  font-size : 1.38rem;
+  flex-shrink: 0;
+}
+
+.acc-title-wrap {
+  flex: 1;
+}
+
+.acc-title {
+  font-size  : .94rem;
+  font-weight: 700;
+  color      : var(--accent);
+}
+
+.acc-preview {
+  font-size  : .8rem;
+  color      : var(--muted);
+  margin-top : .12rem;
+  line-height: 1.4;
+}
+
+.acc-arrow {
+  font-size : .65rem;
+  color     : var(--muted);
+  transition: transform .25s;
+  flex-shrink: 0;
+}
+
+.acc-item.open .acc-arrow {
+  transform: rotate(180deg);
+}
+
+/* Collapsible body — max-height trick for smooth animation */
+.acc-body {
+  max-height: 0;
+  overflow  : hidden;
+  transition: max-height .38s ease;
+}
+
+.acc-item.open .acc-body {
+  max-height: 2200px;
+}
+
+.acc-content {
+  padding: 0 1.2rem 1.4rem 3.5rem;
+}
+
+.acc-content p {
+  font-size    : .86rem;
+  color        : var(--muted);
+  line-height  : 1.78;
+  margin-bottom: .8rem;
+}
+
+.acc-content p:last-child {
+  margin-bottom: 0;
+}
+
+.acc-content ul,
+.acc-content ol {
+  padding-left : 1.35rem;
+  margin-bottom: .8rem;
+}
+
+.acc-content li {
+  font-size    : .85rem;
+  color        : var(--muted);
+  line-height  : 1.72;
+  margin-bottom: .28rem;
+}
+
+.acc-content h4 {
+  font-size    : .87rem;
+  font-weight  : 700;
+  color        : var(--accent);
+  margin       : .85rem 0 .38rem;
+}
+
+.acc-content strong {
+  color      : var(--green);
+  font-weight: 600;
+}
+
+/* Highlighted callout box inside accordion */
+.acc-callout {
+  background   : var(--green-pale);
+  border-left  : 3px solid var(--green-lt);
+  border-radius: 0 8px 8px 0;
+  padding      : .68rem .92rem;
+  margin       : .75rem 0;
+  font-size    : .84rem;
+  color        : var(--green);
+  line-height  : 1.62;
+}
+
+
+/* ============================================================
+   13. REPORT & PICKUP
+   Two-column layout: report form left, pickup form right.
+   Submitted reports list below.
+   ============================================================ */
+.report-item {
+  background   : var(--surface);
+  border       : 1px solid var(--border);
+  border-radius: var(--radius);
+  padding      : .9rem 1rem;
+  margin-bottom: .6rem;
+}
+
+.report-meta {
+  font-size    : .74rem;
+  color        : var(--green-mid);
+  font-weight  : 600;
+  margin-bottom: .25rem;
+}
+
+.report-desc {
+  font-size    : .84rem;
+  color        : var(--text);
+  margin-bottom: .25rem;
+}
+
+.report-who {
+  font-size: .71rem;
+  color    : var(--muted2);
+}
+
+
+/* ============================================================
+   14. DATA SOURCES TABLE
+   Full-width table with alternating row colors
+   ============================================================ */
+.src-table {
+  width          : 100%;
+  border-collapse: collapse;
+  font-size      : .84rem;
+}
+
+.src-table th {
+  text-align    : left;
+  font-size     : .74rem;
+  font-weight   : 700;
+  color         : var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  padding       : .62rem .85rem;
+  border-bottom : 2px solid var(--border);
+}
+
+.src-table td {
+  padding       : .75rem .85rem;
+  border-bottom : 1px solid var(--border);
+  vertical-align: top;
+  color         : var(--muted);
+}
+
+.src-table tr:last-child td {
+  border-bottom: none;
+}
+
+.src-table tr:nth-child(even) td {
+  background: var(--green-p2);
+}
+
+/* Source type badge */
+.src-badge {
+  display      : inline-block;
+  background   : var(--green-pale);
+  color        : var(--green);
+  font-size    : .69rem;
+  font-weight  : 700;
+  padding      : .15rem .5rem;
+  border-radius: 4px;
+}
+
+
+/* ============================================================
+   15. TERMS & CONDITIONS
+   Long-form legal text with numbered headings
+   ============================================================ */
+.tnc-body h3 {
+  font-size    : .95rem;
+  font-weight  : 700;
+  color        : var(--accent);
+  margin       : 1.4rem 0 .45rem;
+}
+
+.tnc-body p,
+.tnc-body li {
+  font-size  : .87rem;
+  color      : var(--muted);
+  line-height: 1.78;
+}
+
+.tnc-body ul {
+  padding-left : 1.4rem;
+  list-style   : disc;
+  margin-bottom: .6rem;
+}
+
+.tnc-body li {
+  margin-bottom: .3rem;
+}
+
+
+/* ============================================================
+   16. FOOTER
+   ============================================================ */
+footer {
+  border-top : 1px solid var(--border);
+  background : var(--surface);
+  padding    : 1.15rem 2.5rem;
+  display    : flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size  : .77rem;
+  color      : var(--muted2);
+  flex-wrap  : wrap;
+  gap        : .5rem;
+}
+
+.footer-links {
+  display: flex;
+  gap    : 1.2rem;
+}
+
+.footer-links a {
+  color          : var(--muted);
+  text-decoration: none;
+  cursor         : pointer;
+  transition     : color .15s;
+}
+
+.footer-links a:hover {
+  color: var(--green);
+}
+
+
+/* ============================================================
+   17. TOAST NOTIFICATION
+   Slides up from bottom when action is completed
+   ============================================================ */
+.toast {
+  position  : fixed;
+  bottom    : 1.8rem;
+  left      : 50%;
+  transform : translateX(-50%) translateY(70px);
+  background: var(--accent);
+  color     : #fff;
+  padding   : .62rem 1.4rem;
+  border-radius: 99px;
+  font-size : .84rem;
+  font-weight: 500;
+  z-index   : 400;
+  opacity   : 0;
+  transition: all .3s;
+  white-space: nowrap;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity  : 1;
+}
+
+
+/* ============================================================
+   18. UTILITIES
+   ============================================================ */
+
+/* Notice / alert boxes */
+.notice {
+  padding      : .75rem 1rem;
+  border-radius: var(--radius);
+  font-size    : .8rem;
+  margin-top   : 1.5rem;
+  line-height  : 1.62;
+}
+
+.notice-warn {
+  background: var(--amber-bg);
+  border    : 1px solid var(--amber-bdr);
+  color     : #92400e;
+}
+
+.notice-ok {
+  background: var(--green-pale);
+  border    : 1px solid #b7e4c7;
+  color     : var(--green);
+}
+
+/* Keyframe animation used by pages and modals */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+
+/* ============================================================
+   19. RESPONSIVE — MOBILE
+   Breakpoint at 680px: single column layouts, smaller padding
+   ============================================================ */
+@media (max-width: 680px) {
+  nav {
+    padding: 0 1.1rem;
+  }
+
+  .nav-links a {
+    padding  : .32rem .48rem;
+    font-size: .74rem;
+  }
+
+  .pg {
+    padding: 1.5rem 1rem 3.5rem;
+  }
+
+  .search-row,
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  footer {
+    flex-direction: column;
+    text-align    : center;
+  }
+
+  .modal-box {
+    margin: 0 .5rem;
+  }
+}

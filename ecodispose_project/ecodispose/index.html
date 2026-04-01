@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoDispose – E-Waste Collection Locator</title>
+
+  <!-- Google Fonts — Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<!-- ============================================================
+     NAVIGATION BAR
+     Sticky top bar with logo, main nav links, and More dropdown
+     ============================================================ -->
+<nav>
+  <div class="logo" onclick="go('home')">Eco<em>Dispose</em></div>
+
+  <ul class="nav-links">
+    <li><a onclick="go('home')"      id="n-home"      class="on">Home</a></li>
+    <li><a onclick="go('search')"    id="n-search"           >Find Centers</a></li>
+    <li><a onclick="go('impact')"    id="n-impact"           >Impact Calc</a></li>
+    <li><a onclick="go('wipe')"      id="n-wipe"             >Data Wipe</a></li>
+    <li><a onclick="go('awareness')" id="n-awareness"        >Awareness</a></li>
+
+    <!-- More dropdown -->
+    <li class="nav-more">
+      <button class="nmb" id="moreBtn" onclick="toggleMore(event)">
+        More <span class="arr">▼</span>
+      </button>
+      <div class="nav-dropdown" id="moreDropdown">
+        <a onclick="go('report')"  id="n-report" >🚨 Report &amp; Pickup</a>
+        <a onclick="go('sources')" id="n-sources">🗂 Data Sources</a>
+        <a onclick="go('tnc')"     id="n-tnc"    >📋 Terms &amp; Conditions</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+
+<!-- ============================================================
+     HOME PAGE
+     ============================================================ -->
+<div class="pg on" id="home">
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-tag">♻ E-Waste Locator Platform</div>
+    <h1>Dispose Your Electronics<br><em>The Right Way</em></h1>
+    <p class="hero-sub">
+      Find authorized e-waste recycling centers near you, learn safe disposal
+      practices, and help protect your community from toxic electronic waste pollution.
+    </p>
+    <div class="hero-btns">
+      <button class="btn btn-p" onclick="go('search')">Find Centers Near You</button>
+      <button class="btn btn-o" onclick="go('awareness')">Learn About E-Waste</button>
+    </div>
+
+    <!-- Stats Strip -->
+    <div class="stats-strip">
+      <div class="stat-box"><div class="num">50+</div><div class="lbl">Collection Centers</div></div>
+      <div class="stat-box"><div class="num">15</div><div class="lbl">Cities Covered</div></div>
+      <div class="stat-box"><div class="num">8</div><div class="lbl">Device Categories</div></div>
+      <div class="stat-box"><div class="num">3M+</div><div class="lbl">Tonnes E-Waste / Year</div></div>
+    </div>
+  </div>
+
+  <div class="hr"></div>
+
+  <!-- What Counts as E-Waste -->
+  <div class="home-title">⚡ What Counts as E-Waste?</div>
+  <div class="home-sub">Any electronic or electrical device that is discarded, broken, or no longer needed</div>
+  <div class="type-grid">
+    <div class="type-card"><div class="type-icon">📱</div><span>Mobile Phones</span></div>
+    <div class="type-card"><div class="type-icon">💻</div><span>Laptops &amp; PCs</span></div>
+    <div class="type-card"><div class="type-icon">📺</div><span>TVs &amp; Monitors</span></div>
+    <div class="type-card"><div class="type-icon">🔋</div><span>Batteries</span></div>
+    <div class="type-card"><div class="type-icon">🖨️</div><span>Printers</span></div>
+    <div class="type-card"><div class="type-icon">🧊</div><span>Refrigerators</span></div>
+    <div class="type-card"><div class="type-icon">📷</div><span>Cameras</span></div>
+    <div class="type-card"><div class="type-icon">🎮</div><span>Gaming Devices</span></div>
+    <div class="type-card"><div class="type-icon">🔌</div><span>Chargers &amp; Cables</span></div>
+    <div class="type-card"><div class="type-icon">❄️</div><span>ACs &amp; Coolers</span></div>
+    <div class="type-card"><div class="type-icon">📻</div><span>Audio Equipment</span></div>
+    <div class="type-card"><div class="type-icon">⌚</div><span>Smartwatches</span></div>
+  </div>
+
+  <div class="hr"></div>
+
+  <!-- The Problem -->
+  <div class="home-title">🚨 The Problem We Are Solving</div>
+  <div class="home-sub">Why improper e-waste disposal is a serious issue in India</div>
+  <div class="prob-grid">
+    <div class="prob-card">
+      <h4>📈 Rapid E-Waste Growth</h4>
+      <p>India generated over 3 million tonnes of e-waste in 2023, making it the 3rd largest producer globally. Growing at 15–20% per year.</p>
+    </div>
+    <div class="prob-card">
+      <h4>🗑️ Most Goes to Landfill</h4>
+      <p>Over 78% of India's e-waste is handled informally — thrown in trash, burned in dumps, or sold to unregistered scrap dealers.</p>
+    </div>
+    <div class="prob-card">
+      <h4>☠️ Toxic Contamination</h4>
+      <p>Electronics contain lead, mercury, cadmium, and arsenic. When dumped, these chemicals seep into soil and groundwater for decades.</p>
+    </div>
+    <div class="prob-card">
+      <h4>🔍 No Easy Way to Find Recyclers</h4>
+      <p>Authorized recycler information is scattered across government PDFs. No single accessible digital platform exists for citizens.</p>
+    </div>
+    <div class="prob-card">
+      <h4>🧑‍🔧 Unsafe Informal Recycling</h4>
+      <p>Informal recyclers burn cables and use acid baths. Workers — often children — suffer toxic exposure causing permanent health damage.</p>
+    </div>
+    <div class="prob-card">
+      <h4>📱 Data Privacy Risk</h4>
+      <p>Old phones sold to scrap dealers without proper wiping can expose contacts, photos, banking apps, and passwords.</p>
+    </div>
+  </div>
+
+  <div class="hr"></div>
+
+  <!-- How It Works -->
+  <div class="home-title">🛠 How EcoDispose Works</div>
+  <div class="home-sub">Simple 4-step process to responsibly dispose your e-waste</div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <h4>Search Your City</h4>
+      <p>Select your city from the dropdown. Instantly see all authorized e-waste collection centers with full contact details.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <h4>Choose Your Device</h4>
+      <p>Filter by device category — mobile, laptop, battery, TV, appliance, or printer — to find centers that accept your item.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <h4>Wipe Your Data</h4>
+      <p>Before handing over any device, follow our Data Wipe Guide to securely erase all personal information.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <h4>Drop Off or Request Pickup</h4>
+      <p>Visit the center using the Google Maps link, or submit a pickup request for a recycler to collect from your address.</p>
+    </div>
+  </div>
+
+  <div class="hr"></div>
+
+  <!-- Platform Features -->
+  <div class="home-title">✨ Platform Features</div>
+  <div class="home-sub">Everything you need for responsible e-waste disposal in one place</div>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-icon">🔍</div><div><h4>Location-Based Search</h4><p>Find verified recyclers in your city instantly with address, phone, and accepted items.</p></div></div>
+    <div class="feat-card"><div class="feat-icon">🗺️</div><div><h4>Google Maps Integration</h4><p>One tap opens Google Maps navigation directly to the recycling center.</p></div></div>
+    <div class="feat-card"><div class="feat-icon">🛡️</div><div><h4>Data Wipe Guide</h4><p>Step-by-step instructions for Android, iPhone, Windows, Mac, and hard drives.</p></div></div>
+    <div class="feat-card"><div class="feat-icon">🌿</div><div><h4>Impact Calculator</h4><p>See how much CO₂, metals, and groundwater you save by recycling.</p></div></div>
+    <div class="feat-card"><div class="feat-icon">🚚</div><div><h4>Pickup Request</h4><p>Request a recycler to collect e-waste from your home or office.</p></div></div>
+    <div class="feat-card"><div class="feat-icon">🚨</div><div><h4>Illegal Dumping Report</h4><p>Report unauthorized e-waste dumping spots in your area.</p></div></div>
+    <div class="feat-card"><div class="feat-icon">📚</div><div><h4>Awareness Education</h4><p>Detailed guides on e-waste rules, toxic materials, health effects.</p></div></div>
+    <div class="feat-card"><div class="feat-icon">🗂️</div><div><h4>Verified Data Sources</h4><p>All recycler data sourced from CPCB, AP PCB, and public listings.</p></div></div>
+  </div>
+
+  <div class="hr"></div>
+
+  <!-- Did You Know -->
+  <div class="home-title">💡 Did You Know?</div>
+  <div class="home-sub">Key facts about e-waste in India</div>
+  <div class="prob-grid">
+    <div class="prob-card"><h4>🥇 India Ranks 3rd Globally</h4><p>India produces approximately 3.2 million tonnes of e-waste per year — third after China and the USA.</p></div>
+    <div class="prob-card"><h4>♻️ Only 22% Formally Recycled</h4><p>Despite strict rules, only 22% of India's e-waste reaches formal authorized recyclers.</p></div>
+    <div class="prob-card"><h4>💰 E-Waste Has Real Value</h4><p>One tonne of circuit boards yields 40–800x more gold than one tonne of ore. Worth $57 billion globally per year.</p></div>
+    <div class="prob-card"><h4>🧒 Children at Highest Risk</h4><p>18 million children work in informal e-waste recycling globally. Lead exposure causes irreversible brain damage.</p></div>
+    <div class="prob-card"><h4>📱 200M Phones Discarded Yearly</h4><p>With 800 million smartphone users upgrading every 2–3 years, India discards over 200 million phones annually.</p></div>
+    <div class="prob-card"><h4>🌡️ Climate Impact</h4><p>Recycling one laptop avoids 180 kg of CO₂ that would be generated by re-mining its materials from scratch.</p></div>
+  </div>
+
+</div><!-- end #home -->
+
+
+<!-- ============================================================
+     FIND CENTERS PAGE
+     ============================================================ -->
+<div class="pg" id="search">
+  <div class="sec-head">
+    <h2>Find Collection Centers</h2>
+    <p>Select your city and device type to find authorized e-waste recyclers</p>
+  </div>
+
+  <!-- Search filters -->
+  <div class="search-box">
+    <div class="search-row">
+      <div>
+        <label>Select City</label>
+        <select id="citySelect" onchange="filterCenters()">
+          <option value="">All Cities</option>
+          <optgroup label="East Godavari / Coastal AP">
+            <option value="kakinada">Kakinada</option>
+            <option value="rajahmundry">Rajahmundry</option>
+            <option value="draksharama">Draksharama</option>
+            <option value="yanam">Yanam</option>
+            <option value="amalapuram">Amalapuram</option>
+            <option value="pithapuram">Pithapuram</option>
+            <option value="samalkot">Samalkot</option>
+          </optgroup>
+          <optgroup label="Other Major Cities">
+            <option value="hyderabad">Hyderabad</option>
+            <option value="bangalore">Bangalore</option>
+            <option value="chennai">Chennai</option>
+            <option value="mumbai">Mumbai</option>
+            <option value="delhi">Delhi</option>
+            <option value="pune">Pune</option>
+            <option value="kolkata">Kolkata</option>
+            <option value="ahmedabad">Ahmedabad</option>
+          </optgroup>
+        </select>
+      </div>
+      <div>
+        <label>Device Category</label>
+        <select id="catFilter" onchange="filterCenters()">
+          <option value="">All Categories</option>
+          <option value="mobile">Mobile / Smartphone</option>
+          <option value="laptop">Laptop / Computer</option>
+          <option value="battery">Battery</option>
+          <option value="tv">TV / Monitor</option>
+          <option value="appliance">Home Appliance</option>
+          <option value="printer">Printer</option>
+        </select>
+      </div>
+      <button class="btn btn-p" onclick="filterCenters()">Search</button>
+    </div>
+  </div>
+
+  <!-- Center result cards rendered by app.js -->
+  <div class="results-grid" id="resultsGrid"></div>
+
+  <div class="notice notice-warn">
+    ⚠ <strong>Disclaimer:</strong> Contact details are sample/demo data collected from public sources
+    for educational demonstration. Always verify with the recycler directly before visiting.
+    See <a onclick="go('sources')" style="cursor:pointer;font-weight:700;">Data Sources</a> for full details.
+  </div>
+</div><!-- end #search -->
+
+
+<!-- ============================================================
+     IMPACT CALCULATOR PAGE
+     ============================================================ -->
+<div class="pg" id="impact">
+  <div class="sec-head">
+    <h2>Environmental Impact Calculator</h2>
+    <p>See the positive environmental impact of your recycling decisions</p>
+  </div>
+
+  <div class="two-col">
+    <!-- Input side -->
+    <div class="card-box">
+      <div class="card-title">Devices You Plan to Recycle</div>
+      <div id="deviceRows"><!-- built by buildDeviceRows() in app.js --></div>
+      <button class="btn btn-p btn-full" style="margin-top:1rem" onclick="calcImpact()">
+        Calculate Impact
+      </button>
+    </div>
+
+    <!-- Results side -->
+    <div class="card-box">
+      <div class="card-title">Your Environmental Impact</div>
+      <div id="impactOut">
+        <p style="font-size:.85rem;color:var(--muted)">
+          Enter device quantities on the left and click Calculate.
+        </p>
+      </div>
+    </div>
+  </div>
+</div><!-- end #impact -->
+
+
+<!-- ============================================================
+     DATA WIPE GUIDE PAGE
+     ============================================================ -->
+<div class="pg" id="wipe">
+  <div class="sec-head">
+    <h2>Device Data Wipe Guide</h2>
+    <p>Protect your personal data before handing over any device for recycling</p>
+  </div>
+
+  <div style="max-width: 400px;">
+    <div class="field">
+      <label>Select Your Device</label>
+      <select id="wipeDevice" onchange="showWipeSteps()">
+        <option value="">-- Choose a device --</option>
+        <option value="android">Android Phone</option>
+        <option value="iphone">iPhone (iOS)</option>
+        <option value="laptop">Windows Laptop</option>
+        <option value="mac">MacBook (macOS)</option>
+        <option value="hdd">External Hard Drive</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Steps rendered by showWipeSteps() in app.js -->
+  <ul class="step-list" id="wipeSteps"></ul>
+</div><!-- end #wipe -->
+
+
+<!-- ============================================================
+     AWARENESS PAGE — EXPANDABLE ACCORDIONS
+     ============================================================ -->
+<div class="pg" id="awareness">
+  <div class="sec-head">
+    <h2>Recycling Awareness</h2>
+    <p>Click any topic to expand and read full detailed information</p>
+  </div>
+
+  <!-- Accordion item 1 -->
+  <div class="acc-item open">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-emoji">☠️</div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Toxic Materials in E-Waste</div>
+        <div class="acc-preview">Lead, mercury, cadmium — what is inside your old electronics</div>
+      </div>
+      <div class="acc-arrow">▼</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+        <p>Electronic devices contain a mixture of hundreds of materials — many of which are highly toxic. When disposed of improperly, these substances are released into soil, water, and air.</p>
+        <h4>Key Toxic Substances in E-Waste:</h4>
+        <ul>
+          <li><strong>Lead (Pb)</strong> — Found in CRT monitors and solder. Causes brain damage, kidney failure, and developmental disorders in children even at very low levels.</li>
+          <li><strong>Mercury (Hg)</strong> — Present in LCD backlights. Vapour permanently damages the nervous system, brain, and kidneys.</li>
+          <li><strong>Cadmium (Cd)</strong> — In rechargeable batteries and semiconductors. Accumulates in the body and causes kidney disease and cancer.</li>
+          <li><strong>Chromium VI</strong> — Used in metal coatings. Highly carcinogenic — causes lung cancer and DNA damage.</li>
+          <li><strong>Arsenic (As)</strong> — In older semiconductors. Causes cardiovascular disease, diabetes, and several types of cancer.</li>
+          <li><strong>Brominated Flame Retardants</strong> — In plastic casings. When burned, release toxic dioxins that persist in the environment.</li>
+        </ul>
+        <div class="acc-callout">💡 A single mobile phone contains over 60 different elements from the periodic table. Many are rare, valuable, and toxic — all the more reason to recycle responsibly.</div>
+        <p>When e-waste is dumped in open landfills, rainwater dissolves these chemicals and carries them into the groundwater. Studies in India have found lead and cadmium concentrations near informal recycling zones at levels 10–100 times above WHO safe limits.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion item 2 -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-emoji">♻️</div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">What Qualifies as E-Waste?</div>
+        <div class="acc-preview">Complete list of devices that must be recycled properly</div>
+      </div>
+      <div class="acc-arrow">▼</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+        <p>E-waste refers to any discarded electrical or electronic equipment. The Indian E-Waste Management Rules 2016 (amended 2022) categorize e-waste into specific schedules.</p>
+        <h4>IT and Telecommunications Equipment:</h4>
+        <ul>
+          <li>Personal computers, laptops, tablets, and notebooks</li>
+          <li>Printers, copiers, scanners, and multifunction devices</li>
+          <li>Mobile phones and cordless phones</li>
+          <li>Routers, modems, and network switches</li>
+          <li>UPS systems, power banks, and external batteries</li>
+        </ul>
+        <h4>Consumer Electronics:</h4>
+        <ul>
+          <li>Televisions (CRT, LCD, LED, OLED)</li>
+          <li>Refrigerators, washing machines, ACs</li>
+          <li>Cameras, gaming consoles, audio systems</li>
+          <li>Smartwatches and fitness trackers</li>
+        </ul>
+        <h4>Components and Consumables:</h4>
+        <ul>
+          <li>Lithium-ion, NiCd, and lead-acid batteries</li>
+          <li>Circuit boards and semiconductors</li>
+          <li>Cables, chargers, and power cords</li>
+        </ul>
+        <div class="acc-callout">⚠️ Even if a device is partially functional, it still qualifies as e-waste when you no longer use it. Do not mix it with regular household garbage.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion item 3 -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-emoji">⚖️</div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Indian E-Waste Rules 2022</div>
+        <div class="acc-preview">Your legal rights and responsibilities under Indian law</div>
+      </div>
+      <div class="acc-arrow">▼</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+        <p>The <strong>E-Waste (Management) Amendment Rules, 2022</strong> came into force on April 1, 2023. These are the most comprehensive e-waste regulations India has ever had.</p>
+        <h4>Key Provisions:</h4>
+        <ul>
+          <li><strong>Extended Producer Responsibility (EPR)</strong> — Manufacturers must collect and recycle a specific percentage of e-waste from their products annually.</li>
+          <li><strong>Authorized Recyclers Only</strong> — E-waste can only be given to recyclers holding a valid SPCB authorization certificate.</li>
+          <li><strong>Bulk Consumers</strong> — Offices, hospitals, and institutions must maintain an e-waste register and ensure proper disposal.</li>
+          <li><strong>No Incineration or Landfilling</strong> — Strictly prohibited. Violations can lead to penalties.</li>
+        </ul>
+        <h4>Citizen Responsibilities:</h4>
+        <ul>
+          <li>Deposit e-waste only at SPCB-authorized collection centers</li>
+          <li>Do not throw electronics in regular dustbins</li>
+          <li>Cooperate with manufacturer take-back programs</li>
+        </ul>
+        <h4>Penalties for Violation:</h4>
+        <p>Under the Environment Protection Act 1986, improper disposal of e-waste can result in imprisonment up to 5 years and/or a fine up to ₹1 lakh per day of violation.</p>
+        <div class="acc-callout">📋 The CPCB maintains a publicly accessible list of authorized e-waste recyclers at cpcb.nic.in. EcoDispose sources its data from this list.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion item 4 -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-emoji">🏭</div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">How the Recycling Process Works</div>
+        <div class="acc-preview">Step-by-step journey from your drop-off to material recovery</div>
+      </div>
+      <div class="acc-arrow">▼</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+        <h4>Stage 1 — Collection &amp; Sorting</h4>
+        <p>Devices are received and sorted by category. A data receipt is issued to the depositor for compliance records.</p>
+        <h4>Stage 2 — Data Destruction</h4>
+        <p>All storage media undergo certified data destruction — physical shredding or multiple-pass overwrite — before any further processing.</p>
+        <h4>Stage 3 — Manual Dismantling</h4>
+        <p>Trained workers wearing PPE disassemble devices. Batteries, LCD panels, and circuit boards are separated for different treatment.</p>
+        <h4>Stage 4 — Hazardous Component Treatment</h4>
+        <p>Batteries undergo controlled chemical treatment. CRT glass containing lead is processed separately. Mercury lamps are handled in sealed chambers.</p>
+        <h4>Stage 5 — Mechanical Processing</h4>
+        <p>Materials go through shredders and granulators. Magnetic separators and eddy current separators sort ferrous metals, non-ferrous metals, and plastics.</p>
+        <h4>Stage 6 — Metal Refining</h4>
+        <p>Circuit boards are processed through hydrometallurgical or pyrometallurgical methods to recover gold, silver, copper, and palladium.</p>
+        <div class="acc-callout">🌿 1 tonne of recycled mobile phones yields approximately 280g of gold, 2.5kg of silver, and 0.5kg of palladium — far more valuable per tonne than ore mining.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion item 5 -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-emoji">💡</div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Informal vs Authorized Recyclers</div>
+        <div class="acc-preview">Why selling to the local kabadiwala may be harming your community</div>
+      </div>
+      <div class="acc-arrow">▼</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+        <p>Most e-waste in India currently goes to the informal sector. While convenient, the methods used are extremely dangerous.</p>
+        <h4>What Informal Recyclers Do:</h4>
+        <ul>
+          <li><strong>Open burning of cables</strong> — Releases dioxins and furans that cause lung disease and cancer</li>
+          <li><strong>Acid leaching in open containers</strong> — Waste acid dumped into drains and soil contaminating water sources</li>
+          <li><strong>Manual crushing without protection</strong> — Workers inhale fine particles of lead, cadmium, and other toxins</li>
+          <li><strong>No data destruction</strong> — Devices sold on without wiping, creating serious privacy risks</li>
+        </ul>
+        <h4>What Authorized Recyclers Do:</h4>
+        <ul>
+          <li>Workers wear PPE — gloves, masks, respirators, and chemical-resistant suits</li>
+          <li>Acid processes in sealed, ventilated chambers with waste treatment</li>
+          <li>Certified data destruction before any processing</li>
+          <li>Annual environmental audits submitted to the SPCB</li>
+        </ul>
+        <div class="acc-callout">✅ Choosing an authorized recycler may mean not receiving payment — but it ensures no worker is harmed, no river is poisoned, and your personal data is properly destroyed.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion item 6 -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-emoji">🌍</div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">India's E-Waste Crisis — The Numbers</div>
+        <div class="acc-preview">Scale, growth rate, and the formal recycling gap</div>
+      </div>
+      <div class="acc-arrow">▼</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+        <h4>Generation Statistics:</h4>
+        <ul>
+          <li>India generated approximately <strong>3.2 million metric tonnes</strong> of e-waste in 2023</li>
+          <li>India ranks <strong>3rd globally</strong> — after China (10.1 MT) and USA (6.9 MT)</li>
+          <li>E-waste growing at <strong>15–20% per year</strong></li>
+          <li>Over <strong>200 million phones</strong> discarded per year in India</li>
+        </ul>
+        <h4>Recycling Gap:</h4>
+        <ul>
+          <li>Only <strong>22%</strong> reaches formal authorized recyclers</li>
+          <li>The remaining <strong>78%</strong> goes to informal recyclers or landfill</li>
+          <li>India has approximately <strong>468 registered authorized recyclers</strong> (CPCB 2024)</li>
+        </ul>
+        <div class="acc-callout">🎯 Government target: 70% formal collection rate by 2026. Currently at 22% — a huge gap that requires public participation and awareness platforms like EcoDispose.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion item 7 -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-emoji">🔋</div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Battery Disposal — Special Warnings</div>
+        <div class="acc-preview">Lithium-ion batteries need special handling — here is why</div>
+      </div>
+      <div class="acc-arrow">▼</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+        <h4>Why Li-ion Batteries are Dangerous:</h4>
+        <ul>
+          <li><strong>Thermal runaway</strong> — A damaged battery can enter a self-heating chain reaction leading to fire or explosion</li>
+          <li><strong>Flammable electrolyte</strong> — Can ignite spontaneously when punctured or crushed</li>
+          <li><strong>Toxic gases</strong> — When burned, releases hydrogen fluoride — an extremely toxic compound</li>
+          <li><strong>Heavy metals</strong> — Older NiCd batteries contain cadmium and nickel that contaminate soil when landfilled</li>
+        </ul>
+        <h4>Safe Battery Disposal Rules:</h4>
+        <ul>
+          <li>Never throw batteries in regular household dustbins</li>
+          <li>Never puncture, crush, or attempt to disassemble a battery</li>
+          <li>Store depleted batteries in a cool, dry place until you can drop them off</li>
+          <li>Take batteries to an authorized e-waste center or manufacturer take-back point</li>
+        </ul>
+        <div class="acc-callout">🔥 If a battery swells or leaks: do not touch with bare hands. Place it on a non-flammable surface outdoors and contact the nearest e-waste facility or fire department.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion item 8 -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-emoji">🛡️</div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Data Security Before Recycling</div>
+        <div class="acc-preview">Why a simple factory reset is not enough to protect your data</div>
+      </div>
+      <div class="acc-arrow">▼</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+        <p>A standard factory reset on older Android devices may not fully overwrite storage. Forensic recovery tools — freely available online — can recover photos, contacts, and banking app data from "reset" devices within minutes.</p>
+        <h4>What Personal Data Is at Risk:</h4>
+        <ul>
+          <li>Contact lists, call logs, and SMS messages</li>
+          <li>Photos and videos including financial documents</li>
+          <li>Saved passwords in browsers</li>
+          <li>Banking and UPI app tokens (BHIM, GPay, PhonePe)</li>
+          <li>Aadhaar and PAN data stored in apps</li>
+        </ul>
+        <h4>Correct Steps Before Disposal:</h4>
+        <ol>
+          <li>Back up data to cloud or new device</li>
+          <li>Sign out of all accounts (Google, Apple ID, bank apps)</li>
+          <li>Remove SIM card and memory card physically</li>
+          <li>Enable encryption first (Android), then factory reset</li>
+          <li>For iPhone, use "Erase All Content and Settings" — triggers cryptographic wipe</li>
+          <li>For laptops, use built-in secure erase or DBAN tool</li>
+        </ol>
+        <div class="acc-callout">🔐 Authorized recyclers also perform certified data destruction — giving you an additional layer of protection that informal scrap dealers never provide.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion item 9 -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-emoji">🏥</div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Health Effects of E-Waste Exposure</div>
+        <div class="acc-preview">Short-term and long-term health impacts on communities near e-waste sites</div>
+      </div>
+      <div class="acc-arrow">▼</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+        <h4>Pathways of Exposure:</h4>
+        <ul>
+          <li><strong>Inhalation</strong> — Burning e-waste releases toxic fumes, smoke, and fine particulate matter</li>
+          <li><strong>Ingestion</strong> — Contaminated groundwater used for drinking; children ingesting contaminated soil</li>
+          <li><strong>Food chain</strong> — Crops grown on contaminated soil absorb heavy metals</li>
+        </ul>
+        <h4>Documented Health Effects:</h4>
+        <ul>
+          <li><strong>Neurological damage</strong> — Lead and mercury cause permanent brain damage, reduced IQ, memory problems</li>
+          <li><strong>Respiratory disease</strong> — Chronic asthma, bronchitis, and increased lung cancer risk</li>
+          <li><strong>Kidney disease</strong> — Cadmium and lead accumulate in kidneys causing progressive failure</li>
+          <li><strong>Hormonal disruption</strong> — Flame retardants interfere with thyroid function and reproductive health</li>
+          <li><strong>Cancer</strong> — Multiple e-waste chemicals are classified as Group 1 carcinogens by the IARC</li>
+        </ul>
+        <div class="acc-callout">⚕️ A 2021 WHO report confirmed up to 18 million children are involved in the informal e-waste sector globally. E-waste exposure is now recognized as a major childhood health crisis by the World Health Organization.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion item 10 -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-emoji">🌱</div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Circular Economy and E-Waste</div>
+        <div class="acc-preview">How proper recycling creates a sustainable materials loop</div>
+      </div>
+      <div class="acc-arrow">▼</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-content">
+        <p>A circular economy keeps materials in use as long as possible. E-waste recycling is a critical part of this model.</p>
+        <h4>Materials Recovered from E-Waste:</h4>
+        <ul>
+          <li><strong>Precious metals</strong> — Gold, silver, platinum, palladium from circuit boards. 1 tonne of boards = 40–800g of gold</li>
+          <li><strong>Base metals</strong> — Copper, aluminium, iron, and steel from wiring and housings</li>
+          <li><strong>Rare earth elements</strong> — Neodymium, indium from screens and speakers — critical for new electronics</li>
+          <li><strong>Plastics</strong> — Engineering plastics from casings can be granulated and reused</li>
+        </ul>
+        <h4>Environmental Benefits vs Mining:</h4>
+        <ul>
+          <li>Recycling 1 tonne of aluminium saves 14,000 kWh of electricity vs mining bauxite</li>
+          <li>Recycling copper uses 85% less energy than smelting from ore</li>
+          <li>Every tonne of e-waste recycled prevents 1–2 tonnes of CO₂-equivalent emissions</li>
+        </ul>
+        <div class="acc-callout">♻️ By depositing your old electronics at an authorized recycler, you directly contribute to a circular materials economy — reducing destructive mining of new metals and rare earth elements.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end #awareness -->
+
+
+<!-- ============================================================
+     REPORT & PICKUP PAGE
+     ============================================================ -->
+<div class="pg" id="report">
+  <div class="sec-head">
+    <h2>Report &amp; Request Pickup</h2>
+    <p>Report illegal dumping or request an e-waste collection from your location</p>
+  </div>
+
+  <div class="two-col">
+
+    <!-- Report illegal dumping form -->
+    <div class="card-box">
+      <div class="card-title">🚨 Report Illegal E-Waste Dumping</div>
+
+      <div class="field">
+        <label>Your Name (Optional)</label>
+        <input type="text" id="rName" placeholder="Anonymous">
+      </div>
+
+      <div class="field">
+        <label>Location of Dumping</label>
+        <select id="rLocation">
+          <option value="">-- Select area --</option>
+          <optgroup label="East Godavari / Coastal AP">
+            <option>Kakinada – Auto Nagar</option>
+            <option>Kakinada – Suryaraopet</option>
+            <option>Kakinada – JNTU Road</option>
+            <option>Kakinada – Jagannaikpur</option>
+            <option>Rajahmundry – Innispeta</option>
+            <option>Rajahmundry – Morampudi Road</option>
+            <option>Rajahmundry – Kotipalli Road</option>
+            <option>Draksharama – Main Road</option>
+            <option>Draksharama – Mandal Area</option>
+            <option>Yanam – Market Road</option>
+            <option>Yanam – Municipality Area</option>
+            <option>Amalapuram – RTC Road</option>
+            <option>Pithapuram – Station Road</option>
+            <option>Samalkot – Market Area</option>
+          </optgroup>
+          <optgroup label="Hyderabad / Telangana">
+            <option>Hyderabad – Jeedimetla</option>
+            <option>Hyderabad – Uppal</option>
+            <option>Secunderabad – General Area</option>
+          </optgroup>
+          <optgroup label="Other Cities">
+            <option>Bangalore – Peenya</option>
+            <option>Chennai – Ambattur</option>
+            <option>Mumbai – Andheri</option>
+            <option>Delhi – Okhla</option>
+            <option>Pune – Bhosari</option>
+            <option>Kolkata – Kasba</option>
+            <option>Ahmedabad – Naroda</option>
+          </optgroup>
+          <option value="other">Other (describe below)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Type of Waste Observed</label>
+        <select id="rType">
+          <option>Old Mobile Phones / Tablets</option>
+          <option>Laptops / Computers</option>
+          <option>Batteries</option>
+          <option>TVs / Monitors</option>
+          <option>Mixed E-Waste</option>
+          <option>Cables and Chargers</option>
+          <option>Refrigerators / ACs</option>
+          <option>Unknown Electronic Items</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+        <textarea id="rDesc" placeholder="Describe what you observed — quantity, visible hazards, etc."></textarea>
+      </div>
+
+      <button class="btn btn-p btn-full" onclick="submitReport()">Submit Report</button>
+    </div>
+
+    <!-- Pickup request form -->
+    <div class="card-box">
+      <div class="card-title">🚚 Request Device Pickup</div>
+
+      <div class="field">
+        <label>Your Name</label>
+        <input type="text" id="pName" placeholder="Full name">
+      </div>
+
+      <div class="field">
+        <label>Your City</label>
+        <select id="pCity">
+          <option value="">-- Select city --</option>
+          <optgroup label="East Godavari / Coastal AP">
+            <option>Kakinada</option>
+            <option>Rajahmundry</option>
+            <option>Draksharama</option>
+            <option>Yanam</option>
+            <option>Amalapuram</option>
+            <option>Pithapuram</option>
+            <option>Samalkot</option>
+          </optgroup>
+          <optgroup label="Other Cities">
+            <option>Hyderabad</option>
+            <option>Bangalore</option>
+            <option>Chennai</option>
+            <option>Mumbai</option>
+            <option>Delhi</option>
+            <option>Pune</option>
+            <option>Kolkata</option>
+            <option>Ahmedabad</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Full Address</label>
+        <input type="text" id="pAddr" placeholder="Street, Locality">
+      </div>
+
+      <div class="field">
+        <label>Device Type</label>
+        <select id="pDevice">
+          <option>Mobile Phone / Tablet</option>
+          <option>Laptop / Desktop</option>
+          <option>Battery</option>
+          <option>TV / Monitor</option>
+          <option>Home Appliance</option>
+          <option>Printer / Scanner</option>
+          <option>Cables / Accessories</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Quantity</label>
+        <input type="number" id="pQty" value="1" min="1">
+      </div>
+
+      <button class="btn btn-p btn-full" onclick="submitPickup()">Request Pickup</button>
+
+      <div class="notice notice-ok" style="margin-top:1rem">
+        ℹ This is a simulated pickup request for demonstration purposes only.
+      </div>
+    </div>
+  </div>
+
+  <!-- Submitted reports list -->
+  <div style="margin-top:2rem">
+    <div class="card-title">Submitted Reports This Session</div>
+    <div id="reportsList"></div>
+    <div id="noReports" style="font-size:.85rem;color:var(--muted2);margin-top:.5rem">
+      No reports submitted yet in this session.
+    </div>
+  </div>
+
+</div><!-- end #report -->
+
+
+<!-- ============================================================
+     DATA SOURCES PAGE
+     ============================================================ -->
+<div class="pg" id="sources">
+  <div class="sec-head">
+    <h2>Data Sources</h2>
+    <p>Where the recycling center information used in this platform was collected from</p>
+  </div>
+
+  <div class="card-box" style="padding:0;overflow:hidden;">
+    <table class="src-table">
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CPCB — Central Pollution Control Board</strong></td>
+          <td><span class="src-badge">Government</span></td>
+          <td>Authorized e-waste recycler list published by the Ministry of Environment. Recyclers registered under E-Waste Management Rules 2016 / Amendment 2022.</td>
+          <td><a href="https://cpcb.nic.in" target="_blank" rel="noopener">cpcb.nic.in ↗</a></td>
+        </tr>
+        <tr>
+          <td><strong>AP State PCB — Andhra Pradesh Pollution Control Board</strong></td>
+          <td><span class="src-badge">Government</span></td>
+          <td>State-level authorized recycler directories covering Andhra Pradesh including East Godavari, Kakinada, Rajahmundry, and coastal AP regions.</td>
+          <td><a href="https://appcb.ap.gov.in" target="_blank" rel="noopener">appcb.ap.gov.in ↗</a></td>
+        </tr>
+        <tr>
+          <td><strong>Google Maps Business Listings</strong></td>
+          <td><span class="src-badge">Public</span></td>
+          <td>Publicly listed e-waste collection businesses found via Google Maps search. Addresses and phone numbers were manually verified from public business listings.</td>
+          <td><a href="https://maps.google.com" target="_blank" rel="noopener">maps.google.com ↗</a></td>
+        </tr>
+        <tr>
+          <td><strong>Recycler Company Websites</strong></td>
+          <td><span class="src-badge">Public</span></td>
+          <td>Contact details and accepted categories sourced from official websites of individual recycling companies.</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Demo / Sample Data</strong></td>
+          <td><span class="src-badge">Simulated</span></td>
+          <td>Some entries are sample data created to demonstrate the platform's search and filter functionality. These are not guaranteed to represent verified operational recyclers.</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="notice notice-warn">
+    ⚠ <strong>Important:</strong> This platform is built for educational and demonstration purposes.
+    Data accuracy cannot be guaranteed. Always verify recycler details through official government
+    portals before visiting any center.
+  </div>
+</div><!-- end #sources -->
+
+
+<!-- ============================================================
+     TERMS & CONDITIONS PAGE
+     ============================================================ -->
+<div class="pg" id="tnc">
+  <div class="sec-head">
+    <h2>Terms &amp; Conditions</h2>
+    <p>Please read these terms before using EcoDispose</p>
+  </div>
+
+  <div class="card-box tnc-body">
+    <p><strong>Last updated:</strong> March 2025 &nbsp;|&nbsp; <strong>Version:</strong> 1.0</p>
+
+    <h3>1. Nature of This Platform</h3>
+    <p>EcoDispose is an informational web platform created as an academic project for educational purposes. It is not a registered business, government portal, or legally authorized recycling service. All features are demonstrations of how such a platform could function.</p>
+
+    <h3>2. Accuracy of Information</h3>
+    <p>Recycling center data has been collected from publicly available sources. We do not guarantee that all listed centers are currently operational, phone numbers are up to date, or all listed categories are accepted. Always verify before visiting.</p>
+
+    <h3>3. Pickup Request Simulation</h3>
+    <p>The pickup request feature is a simulation only. Submitting a request creates no real service obligation. No actual pickup will be arranged through this platform. Contact recyclers directly for real collection services.</p>
+
+    <h3>4. Illegal Dumping Reports</h3>
+    <p>Reports submitted through this platform are stored only within the current browser session and are not forwarded to any government authority. For actual reporting, contact your local municipal corporation or State Pollution Control Board.</p>
+
+    <h3>5. No Government Affiliation</h3>
+    <p>EcoDispose is not affiliated with, endorsed by, or connected to CPCB, any State Pollution Control Board, or any government ministry. Government names are referenced only as data source credits.</p>
+
+    <h3>6. Personal Data</h3>
+    <p>Any information entered into forms is not stored on any server or database. All data remains only in your browser session and is cleared when you close the page. No personal data is collected, transmitted, or retained.</p>
+
+    <h3>7. Environmental Impact Estimates</h3>
+    <p>Figures in the Impact Calculator are approximate estimates based on general industry averages for educational purposes only. They should not be cited as precise scientific measurements.</p>
+
+    <h3>8. Limitation of Liability</h3>
+    <p>The creators of this platform are not responsible for any decisions made based on information displayed here. Users interact with any recycler at their own discretion and risk.</p>
+
+    <h3>9. Intellectual Property</h3>
+    <p>All platform content, design, and code is original work created for academic demonstration. External data sources are fully credited in the Data Sources section.</p>
+
+    <h3>10. Contact</h3>
+    <p>This platform was created as a college academic project. For queries or feedback, please contact the development team through your institution.</p>
+  </div>
+</div><!-- end #tnc -->
+
+
+<!-- ============================================================
+     CENTER DETAIL MODAL
+     Hidden by default. Opened by openModal() in app.js.
+     ============================================================ -->
+<div class="modal-overlay" id="centerModal" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox">
+
+    <div class="modal-header">
+      <h3 id="m-name"></h3>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="detail-row">
+        <div class="detail-icon">📍</div>
+        <div>
+          <div class="detail-label">Address</div>
+          <div class="detail-value" id="m-addr"></div>
+          <a class="maps-btn" id="m-maplink" href="#" target="_blank" rel="noopener">
+            🗺 Open in Google Maps
+          </a>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">🏙</div>
+        <div>
+          <div class="detail-label">City</div>
+          <div class="detail-value" id="m-city"></div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">📞</div>
+        <div>
+          <div class="detail-label">Phone</div>
+          <div class="detail-value" id="m-phone"></div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">♻️</div>
+        <div>
+          <div class="detail-label">Accepted Categories</div>
+          <div class="modal-tags" id="m-cats"></div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">🗂</div>
+        <div>
+          <div class="detail-label">Data Source</div>
+          <div class="detail-value" id="m-src"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end modal -->
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div>© 2025 EcoDispose — Informational Platform for Educational Use</div>
+  <div class="footer-links">
+    <a onclick="go('sources')">Data Sources</a>
+    <a onclick="go('tnc')">Terms &amp; Conditions</a>
+    <a onclick="go('awareness')">Awareness</a>
+  </div>
+</footer>
+
+
+<!-- Toast notification element -->
+<div class="toast" id="toast"></div>
+
+
+<!-- ============================================================
+     SCRIPTS
+     data.js must load BEFORE app.js because app.js reads the
+     centers, impactData, and wipeGuides variables.
+     ============================================================ -->
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
